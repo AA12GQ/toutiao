@@ -44,8 +44,8 @@ export default {
   data() {
     return {
       user: {
-        mobile: '',
-        code: ''
+        mobile: '13911111111',
+        code: '246810'
       }
     }
   },
@@ -59,15 +59,20 @@ export default {
     },
     async onLogin() {
       const user = this.user
-      console.log('111')
+      this.$toast.loading({
+        message: '登录中',
+        forbidClick: true,
+        duration: 0
+      })
       try {
         const res = await login(user)
         console.log('登录成功', res)
+        this.$toast.success('登录成功!')
       } catch (err) {
         if (err.response.status === 400) {
-          console.log('手机或验证码错误')
+          this.$toast.fail('手机号或者验证码错误')
         } else {
-          console.log('登录失败')
+          this.$toast.fail('登录失败！')
         }
       }
     }
