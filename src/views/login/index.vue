@@ -11,6 +11,9 @@
         required
         clearable
         placeholder="请输入手机号"
+        :rules="userFormRules.mobile"
+        type="number"
+        maxlength="11"
         >
         <i slot="left-icon" class="toutiao toutiao-shouji"></i>
       </van-field>
@@ -18,6 +21,8 @@
         v-model="user.code"
         type="number"
         placeholder="请输入验证码"
+        :rules="userFormRules.code"
+        maxlength="6"
     required
       >
         <i slot="left-icon" class="toutiao toutiao-yanzhengma"></i>
@@ -44,8 +49,24 @@ export default {
   data() {
     return {
       user: {
-        mobile: '13911111111',
-        code: '246810'
+        mobile: '',
+        code: ''
+      },
+      userFormRules: {
+        mobile: [{
+          required: true,
+          message: '手机号不能为空'
+        }, {
+          pattern: /^1[3|5|7|8]\d{9}$/,
+          message: '手机号格式错误'
+        }],
+        code: [{
+          required: true,
+          message: '验证码不能为空'
+        }, {
+          pattern: /^\d{6}$/,
+          message: '验证码格式错误'
+        }]
       }
     }
   },
