@@ -1,58 +1,67 @@
 @font-face {
-  font-family: "font_family";
+  font-family: "toutiao";
   /* Project id 3197962 */
-  src: url('//at.alicdn.com/t/font_3197962_ktnhtusihu.woff2?t=1645517449378') format('woff2'), url('//at.alicdn.com/t/font_3197962_ktnhtusihu.woff?t=1645517449378') format('woff'), url('//at.alicdn.com/t/font_3197962_ktnhtusihu.ttf?t=1645517449378') format('truetype');
+  src: url('//at.alicdn.com/t/font_3197962_qxwdukfop4c.woff2?t=1645595402662') format('woff2'), url('//at.alicdn.com/t/font_3197962_qxwdukfop4c.woff?t=1645595402662') format('woff'), url('//at.alicdn.com/t/font_3197962_qxwdukfop4c.ttf?t=1645595402662') format('truetype');
 }
-.font_family {
-  font-family: "font_family" !important;
+.toutiao {
+  font-family: "toutiao" !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-zuojiantou:before {
+.toutiao-zuojiantou:before {
   content: "\e602";
 }
-.icon-pinglun:before {
+.toutiao-pinglun:before {
   content: "\e603";
 }
-.icon-shouye:before {
+.toutiao-shouye:before {
   content: "\e604";
 }
-.icon-shipin:before {
+.toutiao-shipin:before {
   content: "\e605";
 }
-.icon-lishi:before {
+.toutiao-lishi:before {
   content: "\e606";
 }
-.icon-wode:before {
+.toutiao-wode:before {
   content: "\e607";
 }
-.icon-fenxiang:before {
+.toutiao-fenxiang:before {
   content: "\e608";
 }
-.icon-shouji:before {
+.toutiao-shouji:before {
   content: "\e609";
 }
-.icon-youjiantou:before {
+.toutiao-youjiantou:before {
   content: "\e60a";
 }
-.icon-zuopin:before {
+.toutiao-zuopin:before {
   content: "\e60b";
 }
-.icon-guanbi:before {
+.toutiao-guanbi:before {
   content: "\e60c";
 }
-.icon-yanzhengma:before {
+.toutiao-yanzhengma:before {
   content: "\e60d";
 }
-.icon-yuedu:before {
+.toutiao-yuedu:before {
   content: "\e60e";
 }
-.icon-shanchu:before {
+.toutiao-shanchu:before {
   content: "\e60f";
 }
-.icon-shoucang:before {
+.toutiao-shoucang:before {
   content: "\e601";
+}
+body {
+  background-color: #f5f7f9;
+}
+.page-nav-bar {
+  background-color: #3296fa;
+}
+.page-nav-bar .van-nav-bar__title {
+  color: #fff;
 }
 /*# sourceMappingURL=./index.css.map */
