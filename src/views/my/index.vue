@@ -1,13 +1,6 @@
 <template>
   <div class="my-container">
-    <div class="header not-login" @click="$router.push('/login')">
-      <div class="login-btn">
-        <img class="mobile-img" src="~@/assets/mobile.png" alt="">
-        <span class="text">登录 / 注册</span>
-      </div>
-    </div>
-
-    <div class="header user-info">
+    <div class="header user-info" v-if="user">
       <div class="base-info">
         <div class="left">
           <van-image class="avatar" round fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
@@ -36,7 +29,12 @@
         </div>
       </div>
     </div>
-
+    <div v-else class="header not-login" @click="$router.push('/login')">
+      <div class="login-btn">
+        <img class="mobile-img" src="~@/assets/mobile.png" alt="">
+        <span class="text">登录 / 注册</span>
+      </div>
+    </div>
     <van-grid :column-num="2" class="grid-nav" clickable>
       <van-grid-item class="grid-item">
         <i slot="icon" class="toutiao toutiao-shoucang"></i>
@@ -47,10 +45,17 @@
         <span slot="text" class="text">历史</span>
       </van-grid-item>
   </van-grid>
+  <van-cell-group>
+    <van-cell title="消息通知" is-link  class="message"/>
+    <van-cell title="小智同学" is-link  class="Bot_Classmate"/>
+  </van-cell-group>
+  <van-button v-if="user" type="primary" block class="exit-btn" @click="exit" clickable>退出登录</van-button>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'MyIndex',
   components: {},
@@ -58,11 +63,23 @@ export default {
   data() {
     return {}
   },
-  computed: {},
+  computed: {
+    ...mapState(['user'])
+  },
   watch: {},
   created() {},
   mounted() {},
-  methods: {}
+  methods: {
+    exit() {
+      this.$dialog.confirm({
+        title: '确认退出吗？'
+      }).then(() => {
+        this.$store.commit('setUser', null)
+      }).catch(() => {
+
+      })
+    }
+  }
 }
 </script>
 
@@ -140,22 +157,39 @@ export default {
     }
   }
 
-.grid-nav {
-  .grid-item {
-    height: 141px;
-    i.toutiao {
-      font-size:45px;
-    }
-    .toutiao-shoucang {
-      color: #eb5253;
-    }
-    .toutiao-lishi {
-      color: #ff9d1d;
-    }
-    span.text {
-      font-size: 28px;
+  .grid-nav {
+    margin-bottom: 5px;
+    .grid-item {
+      height: 141px;
+      i.toutiao {
+        font-size:45px;
+      }
+      .toutiao-shoucang {
+        color: #eb5253;
+      }
+      .toutiao-lishi {
+        color: #ff9d1d;
+      }
+      span.text {
+        font-size: 28px;
+      }
     }
   }
-}
+  .message::after {
+    content: '';
+     position: absolute;
+     left: 30px;
+     bottom: 0;
+     right: 0px;
+     width: 687px;
+     height: 0.1px;
+     background-color:#ccc;
+  }
+  .exit-btn {
+    margin-top: 10px;
+    background-color: #fff;
+    color: rgb(193,92,81);
+    border: none;
+  }
 }
 </style>
