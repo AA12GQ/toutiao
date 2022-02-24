@@ -118,24 +118,18 @@ export default {
       }
     },
     async onSendSms() {
-      // 1. 校验手机号
       try {
         await this.$refs.loginForm.validate('mobile')
         console.log('验证通过')
       } catch (err) {
         return console.log('验证失败', err)
       }
-
-      // 2. 验证通过，显示倒计时
       this.isCountDownShow = true
-
-      // 3. 请求发送验证码
       try {
         const res = await sendSms(this.user.mobile)
         console.log('发送成功', res)
         this.$toast('发送成功')
       } catch (err) {
-        // 发送失败，关闭倒计时
         this.isCountDownShow = false
         if (err.response.status === 429) {
           this.$toast('发送太频繁了，请稍后重试')
