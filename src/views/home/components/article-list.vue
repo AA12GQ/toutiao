@@ -4,6 +4,8 @@
     v-model="loading"
     :finished="finished"
     finished-text="没有更多了"
+    :error.sync="error"
+    error-text="请求失败，点击重新加载"
     @load="onLoad"
     >
   <van-cell v-for="(article, index) in list" :key="index" :title="article.title" />
@@ -27,7 +29,8 @@ export default {
       list: [],
       loading: false,
       finished: false,
-      timestamp: null
+      timestamp: null,
+      error: false
     }
   },
   computed: {},
@@ -42,6 +45,9 @@ export default {
           timestamp: this.timestamp || Date.now(),
           with_top: 1
         })
+        if (Math.random() > 0.5) {
+          JSON.parse('daojfhgka')
+        }
         const { results } = data.data
         this.list.push(...results)
         this.loading = false
@@ -52,7 +58,8 @@ export default {
           this.finished = true
         }
       } catch (err) {
-        console.log('验证失败', err)
+        this.error = true
+        this.loading = false
       }
     }
   }
