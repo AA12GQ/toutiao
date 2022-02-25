@@ -49,7 +49,6 @@ export default {
     async loadChannels() {
       try {
         const { data } = await getUserChannels()
-        console.log(data)
         this.channels = data.data.channels
       } catch (err) {
         this.$toast('获取频道数据失败')
