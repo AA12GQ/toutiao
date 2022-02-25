@@ -15,7 +15,8 @@
         :title="channel.name"
         v-for="channel in this.channels"
         :key="channel.id"
-      > {{channel.name}}的内容
+      >
+      <article-list :channel="channel" />
       </van-tab>
       <div slot="nav-right" class="placeholder"></div>
       <div slot="nav-right" class="hamburger-btn">
@@ -27,9 +28,10 @@
 
 <script>
 import { getUserChannels } from '@/api/user'
+import ArticleList from './components/article-list.vue'
 export default {
   name: 'HomeIndex',
-  components: {},
+  components: { ArticleList },
   props: {},
   data() {
     return {
