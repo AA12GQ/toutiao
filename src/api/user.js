@@ -25,3 +25,13 @@ export const getUserInfo = () => {
     // }
   })
 }
+
+export const getUserChannels = () => {
+  return request({
+    mehod: 'GET',
+    url: '/v1_0/user/channels'
+    // headers: {
+    //   Authorization: `Bearer ${store.state.user.token}`
+    // }
+  })
+}
