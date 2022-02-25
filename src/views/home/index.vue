@@ -1,6 +1,6 @@
 <template>
   <div class="home-container">
-    <van-nav-bar class="page-nav-bar">
+    <van-nav-bar class="page-nav-bar" fixed>
       <van-button
       class="search-btn"
       slot="title"
@@ -60,6 +60,7 @@ export default {
 
 <style scoped lang="less">
 .home-container {
+  padding-top: 174px;
   padding-bottom: 100px;
  /deep/ .van-nav-bar__title {
     max-width: unset;
@@ -81,7 +82,12 @@ export default {
   }
  /deep/ .channel-tabs {
    .van-tabs__wrap{
+     position: fixed;
      height: 82px;
+     z-index: 1;
+     left: 0;
+     right: 0;
+     top : 92px;
    }
     .van-tab {
       min-width: 200px;
