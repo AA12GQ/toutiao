@@ -7,6 +7,7 @@ import router from './router'
 import store from './store'
 import './styles/index.less'
 import 'amfe-flexible'
+import './utils/dayjs'
 
 Vue.config.productionTip = false
 Vue.use(Vant)
