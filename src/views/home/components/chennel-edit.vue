@@ -10,6 +10,7 @@
         class="grid-item"
         v-for="(channel,index) in MyChannels"
         :key="index"
+        @click="onMyChannelClick(channel,index)"
         >
         <van-icon v-show="isEdit && !flexChannels.includes(channel.id)" slot="icon" name="clear"></van-icon>
       <span class="text" :class="{ active: index === active }" slot="text">{{ channel.name }}</span>
@@ -91,6 +92,13 @@ export default {
     },
     addChannel(channel) {
       this.MyChannels.push(channel)
+    },
+    onMyChannelClick(channel, index) {
+      if (this.isEdit) {
+
+      } else {
+        this.$emit('update-active', index)
+      }
     }
   }
 }

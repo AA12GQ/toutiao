@@ -30,7 +30,7 @@
       close-icon-position="top-left"
       :style="{ height: '100%' }"
     >
-    <channel-edit :my-channels="channels" :active="active"></channel-edit>
+    <channel-edit :my-channels="channels" :active="active" @update-active="onUpdateActive"></channel-edit>
     </van-popup>
   </div>
 </template>
@@ -64,6 +64,11 @@ export default {
       } catch (err) {
         this.$toast('获取频道数据失败')
       }
+    },
+    onUpdateActive(index) {
+      console.log('home', index)
+      this.active = index
+      this.isChennelEditShow = false
     }
   }
 }
