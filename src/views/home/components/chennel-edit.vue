@@ -24,6 +24,7 @@
        :key="index"
        icon="plus"
        :text="channel.name"
+       @click="addChannel(channel)"
       />
     </van-grid>
   </div>
@@ -84,6 +85,9 @@ export default {
       } catch (err) {
         this.$toast('数据获取失败')
       }
+    },
+    addChannel(channel) {
+      this.MyChannels.push(channel)
     }
   }
 }
