@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { getAllChannels } from '@/api/channel'
 export default {
   name: 'ChannelEdit',
   components: {},
@@ -44,13 +45,27 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      allChannels: []
+    }
   },
   computed: {},
   watch: {},
-  created() {},
+  created() {
+    this.loadAllChannels()
+  },
   mounted() {},
-  methods: {}
+  methods: {
+    async loadAllChannels() {
+      try {
+        const { data } = await getAllChannels()
+        console.log(data)
+        this.allChannels = data.data.channels
+      } catch (err) {
+        this.$toast('数据获取失败')
+      }
+    }
+  }
 }
 </script>
 
