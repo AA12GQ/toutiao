@@ -20,7 +20,7 @@
     <van-grid class="recommend-grid" :gutter="8">
       <van-grid-item
        class="grid-item"
-       v-for="(channel,index) in MyChannels"
+       v-for="(channel,index) in recommendChannels"
        :key="index"
        icon="plus"
        :text="channel.name"
@@ -49,7 +49,27 @@ export default {
       allChannels: []
     }
   },
-  computed: {},
+  computed: {
+    recommendChannels() {
+      return this.allChannels.filter(channel => {
+        return !this.MyChannels.find(myChannel => {
+          return myChannel.id === channel.id
+        })
+      })
+    }
+    // recommendChannels() {
+    //   const channnels = []
+    //   this.allChannels.forEach(channel => {
+    //     const ret = this.MyChannels.find(MyChannel => {
+    //       return MyChannel.id === channel.id
+    //     })
+    //     if (!ret) {
+    //       channnels.push(channel)
+    //     }
+    //   })
+    //   return channnels
+    // }
+  },
   watch: {},
   created() {
     this.loadAllChannels()
