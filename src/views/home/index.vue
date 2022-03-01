@@ -65,10 +65,9 @@ export default {
         this.$toast('获取频道数据失败')
       }
     },
-    onUpdateActive(index) {
-      console.log('home', index)
+    onUpdateActive(index, isChennelEditShow = true) {
       this.active = index
-      this.isChennelEditShow = false
+      this.isChennelEditShow = isChennelEditShow
     }
   }
 }

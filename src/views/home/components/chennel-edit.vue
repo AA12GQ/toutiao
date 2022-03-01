@@ -95,7 +95,13 @@ export default {
     },
     onMyChannelClick(channel, index) {
       if (this.isEdit) {
-
+        if (this.flexChannels.includes(channel.id)) {
+          return
+        }
+        this.MyChannels.splice(index, 1)
+        if (index <= this.active) {
+          this.$emit('update-active', this.active - 1, true)
+        }
       } else {
         this.$emit('update-active', index)
       }
