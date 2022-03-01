@@ -10,8 +10,9 @@
         v-for="(channel,index) in MyChannels"
         :key="index"
         icon="clear"
-        :text="channel.name"
-      />
+        >
+      <span class="text" :class="{ active: index === active }" slot="text">{{ channel.name }}</span>
+      </van-grid-item>
     </van-grid>
     <van-cell :border="false">
       <div slot="title" class="title-text">频道推荐</div>
@@ -35,6 +36,10 @@ export default {
   props: {
     MyChannels: {
       type: Array,
+      required: true
+    },
+    active: {
+      type: Number,
       required: true
     }
   },
@@ -70,11 +75,14 @@ export default {
     .van-grid-item__content {
     white-space: nowrap;
     background-color: #f4f5f6;
-    .van-grid-item__text {
+    .van-grid-item__text, .text {
       font-size: 28px;
       color: #222;
       margin-top:0;
-    }
+     }
+     .active {
+       color: red;
+     }
     }
   }
   /deep/ .my-grid {
