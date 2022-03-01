@@ -34,6 +34,8 @@
 
 <script>
 import { getAllChannels } from '@/api/channel'
+import { mapState } from 'vuex'
+import { setItem } from '@/utils/storage'
 export default {
   name: 'ChannelEdit',
   components: {},
@@ -55,6 +57,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['user']),
     recommendChannels() {
       return this.allChannels.filter(channel => {
         return !this.MyChannels.find(myChannel => {
@@ -90,8 +93,21 @@ export default {
         this.$toast('数据获取失败')
       }
     },
-    addChannel(channel) {
+    async addChannel(channel) {
       this.MyChannels.push(channel)
+
+      if (this.user) {
+        // try {
+        //   await addUserChannel({
+        //     id: channel.id,
+        //     seq: this.MyChannels.length
+        //   })
+        // } catch (err) {
+        //   this.$toast('保存失败，请稍后重试')
+        // }
+      } else {
+        setItem('TOUTIAO_CHANNELS', this.MyChannels)
+      }
     },
     onMyChannelClick(channel, index) {
       if (this.isEdit) {
