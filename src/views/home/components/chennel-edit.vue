@@ -2,15 +2,16 @@
   <div class="channel-edit">
     <van-cell :border="false">
       <div slot="title" class="title-text">我的频道</div>
-      <van-button class="edit-btn" type="danger" size="mini" plain small round>编辑</van-button>
+      <van-button class="edit-btn" type="danger" size="mini" plain small round @click="isEdit = !isEdit">
+        {{isEdit ? "完成" : "编辑"}}</van-button>
     </van-cell>
     <van-grid class="my-grid" :gutter="8">
       <van-grid-item
         class="grid-item"
         v-for="(channel,index) in MyChannels"
         :key="index"
-        icon="clear"
         >
+        <van-icon v-show="isEdit && !flexChannels.includes(channel.id)" slot="icon" name="clear"></van-icon>
       <span class="text" :class="{ active: index === active }" slot="text">{{ channel.name }}</span>
       </van-grid-item>
     </van-grid>
@@ -47,7 +48,9 @@ export default {
   },
   data() {
     return {
-      allChannels: []
+      allChannels: [],
+      isEdit: false,
+      flexChannels: [0]
     }
   },
   computed: {
@@ -121,6 +124,9 @@ export default {
      }
      .active {
        color: red;
+     }
+     .van-grid-item__icon-wrapper {
+       position : unset;
      }
     }
   }
