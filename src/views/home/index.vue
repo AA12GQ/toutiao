@@ -19,24 +19,35 @@
       <article-list :channel="channel" />
       </van-tab>
       <div slot="nav-right" class="placeholder"></div>
-      <div slot="nav-right" class="hamburger-btn">
+      <div slot="nav-right" class="hamburger-btn" @click="isChennelEditShow = true">
         <i class="toutiao toutiao-gengduo"></i>
       </div>
     </van-tabs>
+    <van-popup
+      v-model="isChennelEditShow"
+      closeable
+      position="bottom"
+      close-icon-position="top-left"
+      :style="{ height: '100%' }"
+    >
+    <channel-edit :my-channels="channels" ></channel-edit>
+    </van-popup>
   </div>
 </template>
 
 <script>
 import { getUserChannels } from '@/api/user'
-import ArticleList from './components/article-list.vue'
+import ArticleList from './components/article-list'
+import ChannelEdit from './components/chennel-edit'
 export default {
   name: 'HomeIndex',
-  components: { ArticleList },
+  components: { ArticleList, ChannelEdit },
   props: {},
   data() {
     return {
       active: 0,
-      channels: []
+      channels: [],
+      isChennelEditShow: false
     }
   },
   computed: {},
