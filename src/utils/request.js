@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from '@/store'
 
 const request = axios.create({
-  baseURL: 'http://www.liulongbin.top:8000'
+  baseURL: 'http://toutiao.itheima.net'
 })
 
 request.interceptors.request.use(function(config) {

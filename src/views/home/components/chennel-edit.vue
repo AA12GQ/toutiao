@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { getAllChannels } from '@/api/channel'
+import { getAllChannels, deleteChannel } from '@/api/channel'
 import { mapState } from 'vuex'
 import { setItem } from '@/utils/storage'
 export default {
@@ -118,8 +118,20 @@ export default {
         if (index <= this.active) {
           this.$emit('update-active', this.active - 1, true)
         }
+        this.deleteChannel(channel)
       } else {
         this.$emit('update-active', index)
+      }
+    },
+    async deleteChannel(channel) {
+      try {
+        if (this.user) {
+          await deleteChannel(channel.id)
+        } else {
+          setItem('TOUTIAO_CHANNELS', this.MyChannels)
+        }
+      } catch (err) {
+        this.$toast('操作失败，请稍后重试')
       }
     }
   }
