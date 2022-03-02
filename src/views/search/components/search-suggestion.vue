@@ -1,14 +1,17 @@
 <template>
   <div class="search-suggestion">
-    <van-cell title="aa12" icon="search"></van-cell>
-    <van-cell title="aa12" icon="search"></van-cell>
-    <van-cell title="aa12" icon="search"></van-cell>
-    <van-cell title="aa12" icon="search"></van-cell>
-
+    <van-cell
+    :title="text"
+    icon="search"
+    v-for="(text,index) in suggestions"
+    :key="index"
+    >
+    </van-cell>
   </div>
 </template>
 
 <script>
+import { getSearchSuggestions } from '@/api/search'
 export default {
   name: 'SearchSuggestion',
   components: {},
@@ -19,20 +22,32 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      suggestions: []
+    }
   },
   computed: {},
   watch: {
     searchText: {
       handler(value) {
-        console.log(value)
+        this.loadSearchSuggestions(value)
       },
       immediate: true
     }
   },
   created() {},
   mounted() {},
-  methods: {}
+  methods: {
+    async loadSearchSuggestions(q) {
+      try {
+        const { data } = await getSearchSuggestions(q)
+        console.log(data)
+        this.suggestions = data.data.options
+      } catch (err) {
+        this.$toast('数据获取失败，请稍后重试')
+      }
+    }
+  }
 }
 </script>
 
