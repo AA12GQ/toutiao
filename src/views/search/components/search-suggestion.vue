@@ -1,18 +1,19 @@
 <template>
   <div class="search-suggestion">
     <van-cell
-    :title="text"
     icon="search"
     v-for="(text,index) in suggestions"
     :key="index"
     >
+    <div slot="title" v-html="highlight(text)"></div>
     </van-cell>
+
   </div>
 </template>
 
 <script>
 import { getSearchSuggestions } from '@/api/search'
-import { debounce } from 'loadash'
+import { debounce } from 'lodash'
 export default {
   name: 'SearchSuggestion',
   components: {},
@@ -24,7 +25,8 @@ export default {
   },
   data() {
     return {
-      suggestions: []
+      suggestions: [],
+      htmlStr: 'Hello <span style="color: red">World</span>'
     }
   },
   computed: {},
@@ -47,9 +49,20 @@ export default {
       } catch (err) {
         this.$toast('数据获取失败，请稍后重试')
       }
+    },
+    highlight(text) {
+      const highlightStr = `<span class="active">${this.searchText}</span>`
+      const reg = new RegExp(this.searchText, 'gi')
+      return text.replace(reg, highlightStr)
     }
   }
 }
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.search-suggestion {
+  /deep/ span.active {
+    color: #3296fa,
+  }
+}
+</style>
