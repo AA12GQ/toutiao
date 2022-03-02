@@ -1,6 +1,6 @@
 <template>
   <div class="search-container">
-    <form action="/">
+    <form class="form-search" action="/">
     <van-search
       v-model="searchText"
       show-action
@@ -48,7 +48,8 @@ export default {
   data() {
     return {
       searchText: '',
-      isResultShow: false
+      isResultShow: false,
+      searchHistories: []
     }
   },
   computed: {},
@@ -68,8 +69,16 @@ export default {
 
 <style scoped lang="less">
 .search-container {
+  // padding-top: 108px;
   .van-search__action {
     color: #fff;
+  }
+  .search-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
   }
 }
 </style>
