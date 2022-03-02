@@ -12,6 +12,7 @@
 
 <script>
 import { getSearchSuggestions } from '@/api/search'
+import { debounce } from 'loadash'
 export default {
   name: 'SearchSuggestion',
   components: {},
@@ -29,9 +30,9 @@ export default {
   computed: {},
   watch: {
     searchText: {
-      handler(value) {
+      handler: debounce(function(value) {
         this.loadSearchSuggestions(value)
-      },
+      }, 200),
       immediate: true
     }
   },
