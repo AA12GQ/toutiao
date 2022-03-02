@@ -4,7 +4,7 @@
     <van-nav-bar
       class="page-nav-bar"
       left-arrow
-      title="黑马头条"
+      title="今日头条"
     ></van-nav-bar>
     <!-- /导航栏 -->
 
@@ -101,6 +101,7 @@
 </template>
 
 <script>
+import { getArticleById } from '@/api/articles'
 export default {
   name: 'ArticleIndex',
   components: {},
@@ -115,9 +116,20 @@ export default {
   },
   computed: {},
   watch: {},
-  created() {},
+  created() {
+    this.loadArticle()
+  },
   mounted() {},
-  methods: {}
+  methods: {
+    async loadArticle() {
+      try {
+        const { data } = await getArticleById(this.articleId)
+        console.log(data)
+      } catch (err) {
+        console.log('获取数据失败', err)
+      }
+    }
+  }
 }
 </script>
 
