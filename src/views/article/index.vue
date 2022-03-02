@@ -52,7 +52,7 @@
         <!-- /用户信息 -->
 
         <!-- 文章内容 -->
-        <div class="article-content markdown-body" v-html="article.content"></div>
+        <div class="article-content markdown-body" v-html="article.content" ref="article.content"></div>
         <van-divider>正文结束</van-divider>
       </div>
       <!-- /加载完成-文章详情 -->
@@ -102,6 +102,8 @@
 
 <script>
 import { getArticleById } from '@/api/articles'
+import { ImagePreview } from 'vant'
+
 export default {
   name: 'ArticleIndex',
   components: {},
@@ -130,7 +132,9 @@ export default {
       try {
         const { data } = await getArticleById(this.articleId)
         this.article = data.data
-        console.log(data)
+        setTimeout(() => {
+          this.previewImage()
+        }, 0)
       } catch (err) {
         if (err.response && err.response.status === 404) {
           this.errStatus = 404
@@ -138,6 +142,20 @@ export default {
         console.log('获取数据失败', err)
       }
       this.loading = false
+    },
+    previewImage() {
+      const articleContent = this.$refs['article-content']
+      const imgs = articleContent.querySelectorAll('img')
+      const images = []
+      imgs.foreach((img, index) => {
+        images.push(img.src)
+        img.onclclick = () => {
+          ImagePreview({
+            images,
+            startPosition: 1
+          })
+        }
+      })
     }
   }
 }
