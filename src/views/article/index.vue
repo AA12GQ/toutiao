@@ -21,7 +21,7 @@
       <!-- 加载完成-文章详情 -->
       <div class="article-detail">
         <!-- 文章标题 -->
-        <h1 class="article-title">这是文章标题</h1>
+        <h1 class="article-title">{{ article.title }}</h1>
         <!-- /文章标题 -->
 
         <!-- 用户信息 -->
@@ -31,10 +31,10 @@
             slot="icon"
             round
             fit="cover"
-            src="https://img.yzcdn.cn/vant/cat.jpeg"
+            :src="article.aut_photo"
           />
-          <div slot="title" class="user-name">头条号</div>
-          <div slot="label" class="publish-date">14小时前</div>
+          <div slot="title" class="user-name">{{ article.aut_name }}</div>
+          <div slot="label" class="publish-date">{{ article.pubdate | relativeTime }}</div>
           <van-button
             class="follow-btn"
             type="info"
@@ -52,7 +52,7 @@
         <!-- /用户信息 -->
 
         <!-- 文章内容 -->
-        <div class="article-content">这是文章内容</div>
+        <div class="article-content" v-html="article.content"></div>
         <van-divider>正文结束</van-divider>
       </div>
       <!-- /加载完成-文章详情 -->
@@ -112,7 +112,9 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      article: {}
+    }
   },
   computed: {},
   watch: {},
@@ -124,6 +126,7 @@ export default {
     async loadArticle() {
       try {
         const { data } = await getArticleById(this.articleId)
+        this.article = data.data
         console.log(data)
       } catch (err) {
         console.log('获取数据失败', err)
