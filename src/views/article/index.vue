@@ -35,7 +35,13 @@
           />
           <div slot="title" class="user-name">{{ article.aut_name }}</div>
           <div slot="label" class="publish-date">{{ article.pubdate | relativeTime }}</div>
-          <van-button
+          <follow-user
+            class="follow-btn"
+            :is_followed="article.is_followed"
+            :user_id="this.article.aut_id"
+            @update-is_followed="article.is_followed = $event"
+          />
+          <!-- <van-button
             v-if="article.is_followed"
             class="follow-btn"
             round
@@ -53,7 +59,7 @@
             size="small"
             icon="plus"
             @click="onFollow"
-          >关注</van-button>
+          >关注</van-button> -->
         </van-cell>
         <!-- /用户信息 -->
 
@@ -109,11 +115,10 @@
 <script>
 import { getArticleById } from '@/api/articles'
 import { ImagePreview } from 'vant'
-import { addFollow, deleteFollow } from '@/api/user'
-
+import FollowUser from '@/components/follow-user'
 export default {
   name: 'ArticleIndex',
-  components: {},
+  components: { FollowUser },
   props: {
     articleId: {
       type: [Number, String],
@@ -124,8 +129,7 @@ export default {
     return {
       article: {},
       loading: true,
-      errStatus: 0,
-      followLoading: false
+      errStatus: 0
     }
   },
   computed: {},
@@ -164,26 +168,6 @@ export default {
           })
         }
       })
-    },
-    async onFollow() {
-      this.followLoading = true
-      try {
-        if (this.article.is_followed) {
-          await deleteFollow(this.article.aut_id)
-          // this.article.is_followed = false
-        } else {
-          await addFollow(this.article.aut_id)
-          // this.article.is_followed = true
-        }
-        this.article.is_followed = !this.article.is_followed
-      } catch (err) {
-        let message = '操作失败，请重试'
-        if (err.response && err.response.status === 400) {
-          message = '你不能关注你自己'
-        }
-        this.$toast(message)
-      }
-      this.followLoading = true
     }
   }
 }
