@@ -1,6 +1,6 @@
 <template>
     <van-button
-       v-if="is_followed"
+       v-if="value"
        class="follow-btn"
        round
        :loading="loading"
@@ -28,11 +28,11 @@ export default {
   name: 'FollowUser',
   components: {},
   props: {
-    is_followed: {
+    value: {
       type: Boolean,
       required: true
     },
-    user_id: {
+    UserId: {
       type: [Number, String, Object],
       required: true
     }
@@ -50,15 +50,15 @@ export default {
     async onFollow() {
       this.loading = true
       try {
-        if (this.is_followed) {
-          await deleteFollow(this.user_id)
+        if (this.value) {
+          await deleteFollow(this.UserId)
           // this.article.is_followed = false
         } else {
-          await addFollow(this.user_id)
+          await addFollow(this.UserId)
           // this.article.is_followed = true
         }
         // this.is_followed = !this.is_followed
-        this.$emit('update-is_followed', !this.is_followed)
+        this.$emit('input', !this.value)
       } catch (err) {
         let message = '操作失败，请重试'
         if (err.response && err.response.status === 400) {
@@ -66,7 +66,7 @@ export default {
         }
         this.$toast(message)
       }
-      this.loading = true
+      this.loading = false
     }
   }
 }

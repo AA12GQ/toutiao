@@ -14,3 +14,20 @@ export const getArticleById = acticleId => {
     url: `/v1_0/articles/${acticleId}`
   })
 }
+
+export const addCollect = target => {
+  return request({
+    method: 'POST',
+    url: '/v1_0/article/collections',
+    data: {
+      target
+    }
+  })
+}
+
+export const deleteCollect = target => {
+  return request({
+    method: 'DELETE',
+    url: `/v1_0/article/collections/${target}`
+  })
+}
