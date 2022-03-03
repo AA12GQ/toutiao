@@ -36,18 +36,24 @@
           <div slot="title" class="user-name">{{ article.aut_name }}</div>
           <div slot="label" class="publish-date">{{ article.pubdate | relativeTime }}</div>
           <van-button
+            v-if="article.is_followed"
+            class="follow-btn"
+            round
+            :loading="followLoading"
+            size="small"
+            @click="onFollow"
+          >已关注</van-button>
+          <van-button
+            v-else
             class="follow-btn"
             type="info"
             color="#3296fa"
             round
+            :loading="followLoading"
             size="small"
             icon="plus"
+            @click="onFollow"
           >关注</van-button>
-          <!-- <van-button
-            class="follow-btn"
-            round
-            size="small"
-          >已关注</van-button> -->
         </van-cell>
         <!-- /用户信息 -->
 
@@ -103,6 +109,7 @@
 <script>
 import { getArticleById } from '@/api/articles'
 import { ImagePreview } from 'vant'
+import { addFollow, deleteFollow } from '@/api/user'
 
 export default {
   name: 'ArticleIndex',
@@ -117,7 +124,8 @@ export default {
     return {
       article: {},
       loading: true,
-      errStatus: 0
+      errStatus: 0,
+      followLoading: false
     }
   },
   computed: {},
@@ -156,6 +164,26 @@ export default {
           })
         }
       })
+    },
+    async onFollow() {
+      this.followLoading = true
+      try {
+        if (this.article.is_followed) {
+          await deleteFollow(this.article.aut_id)
+          // this.article.is_followed = false
+        } else {
+          await addFollow(this.article.aut_id)
+          // this.article.is_followed = true
+        }
+        this.article.is_followed = !this.article.is_followed
+      } catch (err) {
+        let message = '操作失败，请重试'
+        if (err.response && err.response.status === 400) {
+          message = '你不能关注你自己'
+        }
+        this.$toast(message)
+      }
+      this.followLoading = true
     }
   }
 }
