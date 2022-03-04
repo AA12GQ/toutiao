@@ -70,6 +70,7 @@
         <CommentList
         :source="article.art_id"
         @onload-success="totalCommentCount = $event.total_count"
+        :list="commentList"
         />
                 <!-- 底部区域 -->
         <div class="article-bottom">
@@ -104,6 +105,7 @@
        >
        <CommentPost
        :target="article.art_id"
+       @post-success="onPostSuccess"
        />
        </van-popup>
       </div>
@@ -151,7 +153,8 @@ export default {
       loading: true,
       errStatus: 0,
       totalCommentCount: 0,
-      isPostShow: false
+      isPostShow: false,
+      commentList: []
     }
   },
   computed: {},
@@ -193,6 +196,10 @@ export default {
     },
     onClickLeft() {
       this.$router.back()
+    },
+    onPostSuccess(data) {
+      this.isPostShow = false
+      this.commentList.unshift(data.new_obj)
     }
   }
 }
