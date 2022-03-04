@@ -7,3 +7,20 @@ export const getComments = params => {
     params
   })
 }
+
+export const addCommentLike = target => {
+  return request({
+    method: 'POST',
+    url: '/v1_0/comment/likings',
+    data: {
+      target
+    }
+  })
+}
+
+export const deleteCommentLike = target => {
+  return request({
+    method: 'DELETE',
+    url: ` /v1_0/comment/likings/${target}`
+  })
+}
