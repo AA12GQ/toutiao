@@ -52,3 +52,10 @@ export const deleteFollow = target => {
     url: `/v1_0/user/followings/${target}`
   })
 }
+
+export const getUserProfile = target => {
+  return request({
+    mehod: 'GET',
+    url: '/v1_0/user/profile'
+  })
+}

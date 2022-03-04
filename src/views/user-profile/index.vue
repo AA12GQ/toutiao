@@ -12,28 +12,43 @@
       class="avatar"
       fit="cover"
       round
-      src="https://img01.yzcdn.cn/vant/cat.jpeg"
+      :src="user.photo"
       />
     </van-cell>
-    <van-cell title="昵称" value="内容" is-link/>
-    <van-cell title="性别" value="内容" is-link/>
-    <van-cell title="生日" value="内容" is-link/>
+    <van-cell title="昵称" :value="user.name" is-link/>
+    <van-cell title="性别" :value="user.gender === 0 ? '男' : '女'" is-link/>
+    <van-cell title="生日" :value="user.birthday" is-link/>
   </div>
 </template>
 
 <script>
+import { getUserProfile } from '@/api/user'
 export default {
   name: 'UserProfile',
   components: {},
   props: {},
   data() {
-    return {}
+    return {
+      user: {}
+    }
   },
   computed: {},
   watch: {},
-  created() {},
+  created() {
+    this.loadUserProfile()
+  },
   mounted() {},
-  methods: {}
+  methods: {
+    async loadUserProfile() {
+      try {
+        const { data } = await getUserProfile()
+        console.log(data)
+        this.user = data.data
+      } catch (err) {
+        this.$toast('数据获取失败，请稍后重试')
+      }
+    }
+  }
 }
 </script>
 
