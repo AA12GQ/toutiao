@@ -59,3 +59,11 @@ export const getUserProfile = target => {
     url: '/v1_0/user/profile'
   })
 }
+
+export const updateUserProfile = data => {
+  return request({
+    mehod: 'PATCH',
+    url: '/v1_0/user/profile',
+    data
+  })
+}

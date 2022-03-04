@@ -5,10 +5,11 @@
     left-text="取消"
     right-text="完成"
     @click-left="$emit('close')"
+    @click-right="onConfirm"
     />
     <div class="field-wrap">
       <van-field
-      v-model="message"
+      v-model.trim="localName"
       rows="2"
       autosize
       type="textarea"
@@ -21,20 +22,48 @@
 </template>
 
 <script>
+import { updateUserProfile } from '@/api/user'
 export default {
   name: 'UpdateName',
   components: {},
-  props: {},
+  props: {
+    value: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
-      message: ''
+      localName: this.value
     }
   },
   computed: {},
   watch: {},
   created() {},
   mounted() {},
-  methods: {}
+  methods: {
+    async onConfirm() {
+      this.$toast.loading({
+        message: '保存中...',
+        forbidClick: true,
+        duration: 0
+      })
+      try {
+        const localName = this.localName
+        if (!localName.length) {
+          this.$toast('昵称不能为空')
+        }
+        await updateUserProfile({
+          name: localName
+        })
+        this.$emit('input', localName)
+        this.$emit('close')
+        this.$toast.success('更新成功')
+      } catch (err) {
+        this.$toast.fail('更新失败')
+      }
+    }
+  }
 }
 </script>
 
