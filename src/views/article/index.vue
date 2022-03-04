@@ -4,8 +4,10 @@
     <van-nav-bar
       class="page-nav-bar"
       left-arrow
-      title="今日头条"
-    ></van-nav-bar>
+      title="飘飘头条"
+      @click-left="onClickLeft"
+    >
+    </van-nav-bar>
     <!-- /导航栏 -->
 
     <div class="main-wrap">
@@ -65,6 +67,9 @@
         <!-- 文章内容 -->
         <div class="article-content markdown-body" v-html="article.content" ref="article.content"></div>
         <van-divider>正文结束</van-divider>
+        <CommentList
+        :source="article.art_id"
+        />
                 <!-- 底部区域 -->
         <div class="article-bottom">
           <van-button
@@ -83,9 +88,10 @@
           v-model="article.is_collected"
           :articleId="article.art_id"
             />
-          <van-icon
-            color="#777"
-            name="good-job-o"
+          <LikeArticle
+            class="btn-item"
+            v-model="article.attitude"
+            :articleId="article.art_id"
           />
           <van-icon name="share" color="#777777"></van-icon>
     </div>
@@ -117,9 +123,11 @@ import { getArticleById } from '@/api/articles'
 import { ImagePreview } from 'vant'
 import FollowUser from '@/components/follow-user'
 import CollectArtice from '@/components/collect-article'
+import LikeArticle from '@/components/like-article'
+import CommentList from '@/views/article/components/comment-list'
 export default {
   name: 'ArticleIndex',
-  components: { FollowUser, CollectArtice },
+  components: { FollowUser, CollectArtice, LikeArticle, CommentList },
   props: {
     articleId: {
       type: [Number, String],
@@ -169,6 +177,9 @@ export default {
           })
         }
       })
+    },
+    onClickLeft() {
+      this.$router.back()
     }
   }
 }
