@@ -24,3 +24,11 @@ export const deleteCommentLike = target => {
     url: ` /v1_0/comment/likings/${target}`
   })
 }
+
+export const addComment = data => {
+  return request({
+    method: 'POST',
+    url: '/v1_0/comments',
+    data
+  })
+}

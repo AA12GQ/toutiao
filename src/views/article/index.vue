@@ -78,6 +78,7 @@
             type="default"
             round
             size="small"
+            @click="isPostShow = true"
           >写评论</van-button>
           <van-icon
             name="comment-o"
@@ -97,6 +98,14 @@
           <van-icon name="share" color="#777777"></van-icon>
     </div>
     <!-- /底部区域 -->
+     <van-popup
+        v-model="isPostShow"
+        position="bottom"
+       >
+       <CommentPost
+       :target="article.art_id"
+       />
+       </van-popup>
       </div>
       <!-- /加载完成-文章详情 -->
 
@@ -126,9 +135,10 @@ import FollowUser from '@/components/follow-user'
 import CollectArtice from '@/components/collect-article'
 import LikeArticle from '@/components/like-article'
 import CommentList from '@/views/article/components/comment-list'
+import CommentPost from '@/views/article/components/comment-post'
 export default {
   name: 'ArticleIndex',
-  components: { FollowUser, CollectArtice, LikeArticle, CommentList },
+  components: { FollowUser, CollectArtice, LikeArticle, CommentList, CommentPost },
   props: {
     articleId: {
       type: [Number, String],
@@ -140,7 +150,8 @@ export default {
       article: {},
       loading: true,
       errStatus: 0,
-      totalCommentCount: 0
+      totalCommentCount: 0,
+      isPostShow: false
     }
   },
   computed: {},
