@@ -31,7 +31,9 @@ export default {
   },
   computed: {},
   watch: {},
-  created() {},
+  created() {
+    this.onLoad()
+  },
   mounted() {},
   methods: {
     async onLoad() {
@@ -45,6 +47,7 @@ export default {
         console.log(data)
         const { results } = data.data
         this.list.push(...results)
+        this.$emit('onload-success', data.data)
         this.loading = true
         if (results.length) {
           this.offset = data.data.last_id
