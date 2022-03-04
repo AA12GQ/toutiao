@@ -15,21 +15,30 @@
       :src="user.photo"
       />
     </van-cell>
-    <van-cell title="昵称" :value="user.name" is-link/>
+    <van-cell title="昵称" :value="user.name" is-link @click="isUpdateNameShow = true"/>
     <van-cell title="性别" :value="user.gender === 0 ? '男' : '女'" is-link/>
     <van-cell title="生日" :value="user.birthday" is-link/>
+
+    <van-popup
+     v-model="isUpdateNameShow"
+     style="height: 100%"
+     position="bottom">
+      <update-name @close="isUpdateNameShow = false"/>
+    </van-popup>
   </div>
 </template>
 
 <script>
 import { getUserProfile } from '@/api/user'
+import UpdateName from './components/update-name.vue'
 export default {
   name: 'UserProfile',
-  components: {},
+  components: { UpdateName },
   props: {},
   data() {
     return {
-      user: {}
+      user: {},
+      isUpdateNameShow: false
     }
   },
   computed: {},
@@ -57,6 +66,9 @@ export default {
   .avatar {
     width: 100px;
     height: 100px;
+  }
+  .van-popup {
+    background-color: #f5f7f9;
   }
 }
 </style>
