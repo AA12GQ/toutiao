@@ -6,13 +6,14 @@
     left-arrow
     @click-left="$router.back()"
     />
-
+    <input type="file" hidden ref="file" @change="onFileChange"/>
     <van-cell title="头像" is-link>
       <van-image
       class="avatar"
       fit="cover"
       round
       :src="user.photo"
+      @click="$refs.file.click()"
       />
     </van-cell>
     <van-cell title="昵称" :value="user.name" is-link @click="isUpdateNameShow = true"/>
@@ -49,6 +50,14 @@
     @close="isUpdateBirthdayShow = false"
     />
     </van-popup>
+
+    <van-popup
+    v-model="isUpdatePhotoShow"
+    position="bottom"
+    style="height: 100%;"
+    >
+    <update-photo :img="img"/>
+    </van-popup>
   </div>
 </template>
 
@@ -57,16 +66,19 @@ import { getUserProfile } from '@/api/user'
 import UpdateName from './components/update-name'
 import UpdateGender from './components/update-gender'
 import UpdateBirthday from './components/update-birthday'
+import UpdatePhoto from './components/update-photo'
 export default {
   name: 'UserProfile',
-  components: { UpdateName, UpdateGender, UpdateBirthday },
+  components: { UpdateName, UpdateGender, UpdateBirthday, UpdatePhoto },
   props: {},
   data() {
     return {
       user: {},
       isUpdateNameShow: false,
       isUpdateGenderShow: false,
-      isUpdateBirthdayShow: false
+      isUpdateBirthdayShow: false,
+      isUpdatePhotoShow: false,
+      img: null
     }
   },
   computed: {},
@@ -83,6 +95,12 @@ export default {
       } catch (err) {
         this.$toast('数据获取失败，请稍后重试')
       }
+    },
+    onFileChange() {
+      const file = this.$refs.file.files[0]
+      this.img = window.URL.createObjectURL(file)
+      this.isUpdatePhotoShow = true
+      this.$refs.value = ''
     }
   }
 }
