@@ -67,3 +67,11 @@ export const updateUserProfile = data => {
     data
   })
 }
+
+export const updateUserPhoto = data => {
+  return request({
+    mehod: 'PATCH',
+    url: '/v1_0/user/photo',
+    data
+  })
+}

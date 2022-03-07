@@ -56,7 +56,12 @@
     position="bottom"
     style="height: 100%;"
     >
-    <update-photo :img="img"/>
+    <update-photo
+      v-if="isUpdatePhotoShow"
+      :img="img"
+      @close="isUpdatePhotoShow = false"
+      @update-photo="user.photo = $event"
+      />
     </van-popup>
   </div>
 </template>
