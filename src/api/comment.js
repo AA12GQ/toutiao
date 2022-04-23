@@ -21,7 +21,7 @@ export const addCommentLike = target => {
 export const deleteCommentLike = target => {
   return request({
     method: 'DELETE',
-    url: ` /v1_0/comment/likings/${target}`
+    url: `/v1_0/comment/likings/${target}`
   })
 }
 

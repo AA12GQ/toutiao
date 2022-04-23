@@ -4,6 +4,22 @@ const path = require('path')
 const coverPath = path.join(__dirname, './src/styles/cover.less')
 
 module.exports = {
+  publicPath: './',
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://42.192.3.136:3000/api/v1', // 接口域名
+        changeOrigin: true, // 是否跨域
+        ws: true, // 是否代理 websockets
+        secure: false, // 是否https接口
+        pathResolver: { '^/api': '' }
+      },
+      '': {
+        target: 'http://toutiao.itheima.net',
+        changeOrigin: true // 是否跨域
+      }
+    }
+  },
   css: {
     loaderOptions: {
       less: {

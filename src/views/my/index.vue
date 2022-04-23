@@ -47,7 +47,7 @@
   </van-grid>
   <van-cell-group>
     <van-cell title="消息通知" is-link  class="message"/>
-    <van-cell title="小智同学" is-link  class="Bot_Classmate"/>
+    <van-cell title="小飘同学" is-link  class="Bot_Classmate"/>
   </van-cell-group>
   <van-button v-if="user" type="primary" block class="exit-btn" @click="exit" clickable>退出登录</van-button>
   </div>
