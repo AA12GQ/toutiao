@@ -63,3 +63,12 @@
 点赞通知
 评论通知
 关注通知
+
+项目功能截图
+![image](https://github.com/AA12GQ/toutiao/blob/main/src/proImg/channels.png)
+![image](https://github.com/AA12GQ/toutiao/blob/main/src/proImg/home_detail.png)
+![image](https://github.com/AA12GQ/toutiao/blob/main/src/proImg/my.png)
+![image](https://github.com/AA12GQ/toutiao/blob/main/src/proImg/shouye.png)
+![image](https://github.com/AA12GQ/toutiao/blob/main/src/proImg/myEdit.png)
+
+预览地址:http://localhost:8080/#/
