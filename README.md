@@ -66,4 +66,4 @@
 ![image](https://github.com/AA12GQ/toutiao/blob/main/src/proImg/shouye.png)
 ![image](https://github.com/AA12GQ/toutiao/blob/main/src/proImg/myEdit.png)
   
-预览地址:http://localhost:8080/#/
+预览地址:http://42.192.3.136:8081
