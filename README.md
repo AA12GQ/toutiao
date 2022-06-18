@@ -1,3 +1,4 @@
+> [演示地址](http://42.192.3.136:8081/#/)
 ##一、项目背景
 随着智能手机的普及，人们更加习惯于通过手机来看新闻。  
 由于生活节奏的加快，很多人只能利用碎片时间来获取信息，因此，对于移动资讯客户端的需求也越来越高。  
@@ -65,5 +66,3 @@
 ![image](https://github.com/AA12GQ/toutiao/blob/main/src/proImg/my.png)
 ![image](https://github.com/AA12GQ/toutiao/blob/main/src/proImg/shouye.png)
 ![image](https://github.com/AA12GQ/toutiao/blob/main/src/proImg/myEdit.png)
-  
-预览地址:http://42.192.3.136:8081
